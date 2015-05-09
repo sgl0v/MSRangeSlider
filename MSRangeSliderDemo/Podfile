@@ -1,0 +1,5 @@
+platform :ios, '8.0'
+
+link_with 'MSRangeSliderDemo', 'MSRangeSliderDemoTests'
+
+pod 'MSRangeSlider', :path => '../'
