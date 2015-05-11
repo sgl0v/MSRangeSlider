@@ -9,7 +9,7 @@
 #import "MSRangeSlider.h"
 
 static CGFloat const kRangeSliderTrackHeight = 2.0f;
-static CGFloat const kRangeSliderHeight = 28.0f;
+static CGFloat const kRangeSliderDimension = 28.0f;
 
 @interface MSThumbView : UIView
 @property (nonatomic, strong) CALayer *thumbLayer;
@@ -26,7 +26,7 @@ static CGFloat const kRangeSliderHeight = 28.0f;
 
         self.thumbLayer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:.4].CGColor;
         self.thumbLayer.borderWidth = .5;
-        self.thumbLayer.cornerRadius = kRangeSliderHeight / 2;
+        self.thumbLayer.cornerRadius = kRangeSliderDimension / 2;
         self.thumbLayer.backgroundColor = [UIColor whiteColor].CGColor;
         self.thumbLayer.shadowColor = [UIColor blackColor].CGColor;
         self.thumbLayer.shadowOffset = CGSizeMake(0.0, 3.0);
@@ -44,8 +44,8 @@ static CGFloat const kRangeSliderHeight = 28.0f;
         return;
     }
 
-    self.thumbLayer.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-    self.thumbLayer.position = CGPointMake(kRangeSliderHeight / 2, kRangeSliderHeight / 2);
+    self.thumbLayer.bounds = CGRectMake(0, 0, kRangeSliderDimension, kRangeSliderDimension);
+    self.thumbLayer.position = CGPointMake(kRangeSliderDimension / 2, kRangeSliderDimension / 2);
 }
 
 @end
@@ -91,7 +91,7 @@ static CGFloat const kRangeSliderHeight = 28.0f;
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, kRangeSliderHeight);
+    return CGSizeMake(UIViewNoIntrinsicMetric, kRangeSliderDimension);
 }
 
 - (void)layoutSubviews
@@ -101,13 +101,13 @@ static CGFloat const kRangeSliderHeight = 28.0f;
 
 - (void)setFromValue:(CGFloat)fromValue
 {
-    _fromValue = fromValue;
+    _fromValue = MIN(MAX(fromValue, self.minimumValue), self.toValue - self.minimumInterval);
     [self ms_updateThumbsPosition];
 }
 
 - (void)setToValue:(CGFloat)toValue
 {
-    _toValue = toValue;
+    _toValue = MAX(MIN(toValue, self.maximumValue), self.fromValue + self.minimumInterval);
     [self ms_updateThumbsPosition];
 }
 
@@ -186,11 +186,14 @@ static CGFloat const kRangeSliderHeight = 28.0f;
 
 - (void)ms_updateThumbsPosition
 {
-    self.fromThumbView.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-    self.fromThumbView.center = [self ms_thumbLocationForValue:self.fromValue offset:kRangeSliderHeight / 2];
+    CGPoint fromThumbLocation = [self ms_thumbLocationForValue:self.fromValue];
 
-    self.toThumbView.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-    self.toThumbView.center = [self ms_thumbLocationForValue:self.toValue offset:-kRangeSliderHeight / 2];
+    self.fromThumbView.frame = CGRectMake(fromThumbLocation.x, fromThumbLocation.y, kRangeSliderDimension, kRangeSliderDimension);
+
+    CGPoint toThumbLocation = [self ms_thumbLocationForValue:self.toValue];
+    self.toThumbView.frame = CGRectMake(toThumbLocation.x, toThumbLocation.y, kRangeSliderDimension, kRangeSliderDimension);
+
+    NSLog(@"%.2f %.2f", self.fromValue, self.toValue);
 }
 
 - (void)ms_didPanFromThumbView:(UIGestureRecognizer *)gestureRecognizer
@@ -200,6 +203,7 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     }
 
     CGPoint location = [gestureRecognizer locationInView:self];
+    location = (CGPoint) {.x = location.x - kRangeSliderDimension / 2, .y = location.y };
     self.fromValue = [self ms_valueForLocation:location];
     [self setNeedsLayout];
 }
@@ -211,6 +215,7 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     }
 
     CGPoint location = [gestureRecognizer locationInView:self];
+    location = (CGPoint) {.x = location.x - kRangeSliderDimension / 2, .y = location.y };
     self.toValue = [self ms_valueForLocation:location];
     [self setNeedsLayout];
 }
@@ -218,18 +223,17 @@ static CGFloat const kRangeSliderHeight = 28.0f;
 - (CGFloat)ms_valueForLocation:(CGPoint)location
 {
     CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat x = MIN(MAX(location.x, kRangeSliderHeight / 2), width - kRangeSliderHeight / 2);
+    CGFloat x = MIN(MAX(location.x, 0), width - kRangeSliderDimension);
 
-    return self.minimumValue + (self.maximumValue - self.minimumValue) * (x - kRangeSliderHeight / 2) / (width - kRangeSliderHeight);
+    return self.minimumValue + (self.maximumValue - self.minimumValue) * x / (width - kRangeSliderDimension);
 }
 
-- (CGPoint)ms_thumbLocationForValue:(CGFloat)value offset:(CGFloat)offset
+- (CGPoint)ms_thumbLocationForValue:(CGFloat)value
 {
     CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat height = CGRectGetHeight(self.bounds);
-    CGFloat toThumbCoordX = width * (value - self.minimumValue) / (self.maximumValue - self.minimumValue) + offset;
+    CGFloat x = (width - kRangeSliderDimension) * (value - self.minimumValue) / (self.maximumValue - self.minimumValue);
 
-    return CGPointMake(toThumbCoordX, height / 2);
+    return CGPointMake(x, 0);
 }
 
 @end
