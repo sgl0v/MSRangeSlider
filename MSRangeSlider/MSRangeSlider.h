@@ -21,8 +21,8 @@
 //! @abstract The minimum diapason between sliders. The default value is 0.1.
 @property (nonatomic, assign) CGFloat minimumInterval;
 
-@property (nonatomic, retain) UIColor *selectedTrackTintColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, retain) UIColor *trackTintColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, retain) UIColor *thumbTintColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *selectedTrackTintColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *trackTintColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *thumbTintColor UI_APPEARANCE_SELECTOR;
 
 @end
