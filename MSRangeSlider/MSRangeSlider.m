@@ -52,8 +52,6 @@ static CGFloat const kRangeSliderHeight = 28.0f;
 
 @interface MSRangeSlider ()
 
-//@property (nonatomic, strong) CALayer *fromThumbLayer;
-//@property (nonatomic, strong) CALayer *toThumbLayer;
 @property (nonatomic, strong) CALayer *trackLayer;
 @property (nonatomic, strong) CALayer *selectedTrackLayer;
 
@@ -101,6 +99,30 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     [self ms_updateThumbsPosition];
 }
 
+- (void)setFromValue:(CGFloat)fromValue
+{
+    _fromValue = fromValue;
+    [self ms_updateThumbsPosition];
+}
+
+- (void)setToValue:(CGFloat)toValue
+{
+    _toValue = toValue;
+    [self ms_updateThumbsPosition];
+}
+
+- (void)setMinimumValue:(CGFloat)minimumValue
+{
+    _minimumValue = minimumValue;
+    [self ms_updateThumbsPosition];
+}
+
+- (void)setMaximumValue:(CGFloat)maximumValue
+{
+    _maximumValue = maximumValue;
+    [self ms_updateThumbsPosition];
+}
+
 #pragma mark - CALayerDelegate
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer
@@ -123,12 +145,6 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     self.selectedTrackLayer.frame = CGRectMake(0, 0, to - from, kRangeSliderTrackHeight);
     self.selectedTrackLayer.position = CGPointMake((from + to) / 2, height / 2);
     [CATransaction commit];
-
-//    self.fromThumbLayer.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-//    self.fromThumbLayer.position = CGPointMake(0, height / 2);
-//
-//    self.toThumbLayer.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-//    self.toThumbLayer.position = CGPointMake(width, height / 2);
 }
 
 #pragma mark - Private methods
@@ -141,7 +157,6 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     self.toValue = 1.0;
     self.minimumInterval = 0.1;
 
-//    self.contentMode = UIViewContentModeRedraw;
     self.selectedTrackTintColor = [UIColor colorWithRed:0.0 green:122.0 / 255.0 blue:1.0 alpha:1.0];
     self.trackTintColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
     self.thumbTintColor = [UIColor whiteColor];
@@ -156,11 +171,6 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     self.selectedTrackLayer.cornerRadius = 1.3;
     [self.layer addSublayer:self.selectedTrackLayer];
 
-//    self.fromThumbLayer = [self ms_createThumbLayer];
-//    [self.layer addSublayer:self.fromThumbLayer];
-//    self.toThumbLayer = [self ms_createThumbLayer];
-//    [self.layer addSublayer:self.toThumbLayer];
-
     self.fromThumbView = [[MSThumbView alloc] init];
     [self addSubview:self.fromThumbView];
     UIGestureRecognizer *fromGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(ms_didPanFromThumbView:)];
@@ -174,31 +184,13 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     [self ms_updateThumbsPosition];
 }
 
-//- (CALayer *)ms_createThumbLayer
-//{
-//    CALayer *thumbLayer = [CALayer layer];
-//
-//    thumbLayer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:.4].CGColor;
-//    thumbLayer.borderWidth = .5;
-//    thumbLayer.cornerRadius = kRangeSliderHeight / 2;
-//    thumbLayer.backgroundColor = self.thumbTintColor.CGColor;
-//    thumbLayer.shadowColor = [UIColor blackColor].CGColor;
-//    thumbLayer.shadowOffset = CGSizeMake(0.0, 3.0);
-//    thumbLayer.shadowRadius = 3;
-//    thumbLayer.shadowOpacity = 0.2f;
-//    return thumbLayer;
-//}
-
 - (void)ms_updateThumbsPosition
 {
-    CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat height = CGRectGetHeight(self.bounds);
-
     self.fromThumbView.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-    self.fromThumbView.center = CGPointMake(kRangeSliderHeight / 2, height / 2);
+    self.fromThumbView.center = [self ms_thumbLocationForValue:self.fromValue offset:kRangeSliderHeight / 2];
 
     self.toThumbView.bounds = CGRectMake(0, 0, kRangeSliderHeight, kRangeSliderHeight);
-    self.toThumbView.center = CGPointMake(width - kRangeSliderHeight / 2, height / 2);
+    self.toThumbView.center = [self ms_thumbLocationForValue:self.toValue offset:-kRangeSliderHeight / 2];
 }
 
 - (void)ms_didPanFromThumbView:(UIGestureRecognizer *)gestureRecognizer
@@ -208,9 +200,7 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     }
 
     CGPoint location = [gestureRecognizer locationInView:self];
-    CGFloat x = MIN(MAX(location.x, kRangeSliderHeight / 2), CGRectGetWidth(self.bounds) - kRangeSliderHeight / 2);
-    self.fromThumbView.center = CGPointMake(x, CGRectGetHeight(self.bounds) / 2);
-
+    self.fromValue = [self ms_valueForLocation:location];
     [self setNeedsLayout];
 }
 
@@ -221,10 +211,25 @@ static CGFloat const kRangeSliderHeight = 28.0f;
     }
 
     CGPoint location = [gestureRecognizer locationInView:self];
-    CGFloat x = MIN(MAX(location.x, kRangeSliderHeight / 2), CGRectGetWidth(self.bounds) - kRangeSliderHeight / 2);
-    self.toThumbView.center = CGPointMake(x, CGRectGetHeight(self.bounds) / 2);
-
+    self.toValue = [self ms_valueForLocation:location];
     [self setNeedsLayout];
+}
+
+- (CGFloat)ms_valueForLocation:(CGPoint)location
+{
+    CGFloat width = CGRectGetWidth(self.bounds);
+    CGFloat x = MIN(MAX(location.x, kRangeSliderHeight / 2), width - kRangeSliderHeight / 2);
+
+    return self.minimumValue + (self.maximumValue - self.minimumValue) * (x - kRangeSliderHeight / 2) / (width - kRangeSliderHeight);
+}
+
+- (CGPoint)ms_thumbLocationForValue:(CGFloat)value offset:(CGFloat)offset
+{
+    CGFloat width = CGRectGetWidth(self.bounds);
+    CGFloat height = CGRectGetHeight(self.bounds);
+    CGFloat toThumbCoordX = width * (value - self.minimumValue) / (self.maximumValue - self.minimumValue) + offset;
+
+    return CGPointMake(toThumbCoordX, height / 2);
 }
 
 @end
