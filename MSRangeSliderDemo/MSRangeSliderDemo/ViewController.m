@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
+#import <MSRangeSlider/MSRangeSlider.h>
 
 @interface ViewController ()
-
+@property (nonatomic, weak) IBOutlet UILabel *range;
 @end
 
 @implementation ViewController
@@ -24,6 +25,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)ms_didChangeValue:(MSRangeSlider *)sender
+{
+    self.range.text = [NSString stringWithFormat:@"%.2f - %.2f", sender.fromValue, sender.toValue];
 }
 
 @end

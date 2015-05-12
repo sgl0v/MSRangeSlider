@@ -206,6 +206,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     location = (CGPoint) {.x = location.x - kRangeSliderDimension / 2, .y = location.y };
     self.fromValue = [self ms_valueForLocation:location];
     [self setNeedsLayout];
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)ms_didPanToThumbView:(UIGestureRecognizer *)gestureRecognizer
@@ -218,6 +219,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     location = (CGPoint) {.x = location.x - kRangeSliderDimension / 2, .y = location.y };
     self.toValue = [self ms_valueForLocation:location];
     [self setNeedsLayout];
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (CGFloat)ms_valueForLocation:(CGPoint)location
