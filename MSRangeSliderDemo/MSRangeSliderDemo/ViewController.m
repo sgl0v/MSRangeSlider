@@ -10,6 +10,8 @@
 #import <MSRangeSlider/MSRangeSlider.h>
 
 @interface ViewController ()
+@property (nonatomic, weak) IBOutlet MSRangeSlider *rangeSlider;
+@property (nonatomic, weak) IBOutlet UISlider *slider;
 @property (nonatomic, weak) IBOutlet UILabel *range;
 @end
 
@@ -18,7 +20,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.rangeSlider.minimumValue = 0;
+    self.rangeSlider.maximumValue = 100;
+    self.rangeSlider.minimumInterval = 50;
+    self.rangeSlider.fromValue = 0;
+    self.rangeSlider.toValue = 50;
+    [self ms_didChangeValue:self.rangeSlider];
 }
 
 - (void)didReceiveMemoryWarning

@@ -22,7 +22,7 @@
                                     <constraint firstAttribute="width" constant="250" id="a7w-oQ-iTa"/>
                                 </constraints>
                             </slider>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="nBz-uD-VXQ" customClass="MSRangeSlider">
+                            <view opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="nBz-uD-VXQ" customClass="MSRangeSlider">
                                 <rect key="frame" x="175" y="194" width="250" height="30"/>
                                 <connections>
                                     <action selector="ms_didChangeValue:" destination="vXZ-lx-hvc" eventType="valueChanged" id="qaz-aK-2lb"/>
@@ -48,6 +48,8 @@
                     </view>
                     <connections>
                         <outlet property="range" destination="iso-zc-bS4" id="s3a-Zn-G3d"/>
+                        <outlet property="rangeSlider" destination="nBz-uD-VXQ" id="ip9-Ur-ART"/>
+                        <outlet property="slider" destination="ElT-Ou-eT6" id="5bC-8c-ZhC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
