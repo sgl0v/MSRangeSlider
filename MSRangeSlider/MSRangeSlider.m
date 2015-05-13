@@ -91,65 +91,43 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
 - (void)layoutSubviews
 {
-    [self ms_updateThumbsPosition];
+    [self ms_updateThumbs];
+    [self ms_updateTrackLayers];
 }
 
 - (void)setFromValue:(CGFloat)fromValue
 {
-    _fromValue = MIN(MAX(fromValue, self.minimumValue), self.toValue - self.minimumInterval);
-    [self ms_updateThumbsPosition];
+    _fromValue = MAX(MIN(fromValue, self.toValue - self.minimumInterval), self.minimumValue);
+    [self ms_alignValues];
     [self setNeedsLayout];
 }
 
 - (void)setToValue:(CGFloat)toValue
 {
-    _toValue = MAX(MIN(toValue, self.maximumValue), self.fromValue + self.minimumInterval);
-    [self ms_updateThumbsPosition];
+    _toValue = MIN(MAX(toValue, self.fromValue + self.minimumInterval), self.maximumValue);
+    [self ms_alignValues];
     [self setNeedsLayout];
 }
 
 - (void)setMinimumValue:(CGFloat)minimumValue
 {
     _minimumValue = minimumValue;
-    [self ms_updateThumbsPosition];
+    [self ms_alignValues];
     [self setNeedsLayout];
 }
 
 - (void)setMaximumValue:(CGFloat)maximumValue
 {
     _maximumValue = maximumValue;
-    [self ms_updateThumbsPosition];
+    [self ms_alignValues];
     [self setNeedsLayout];
 }
 
 - (void)setMinimumInterval:(CGFloat)minimumInterval
 {
     _minimumInterval = minimumInterval;
-    [self ms_updateThumbsPosition];
-}
-
-#pragma mark - CALayerDelegate
-
-- (void)layoutSublayersOfLayer:(CALayer *)layer
-{
-    if (layer != self.layer) {
-        return;
-    }
-
-    CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat height = CGRectGetHeight(self.bounds);
-    self.trackLayer.bounds = CGRectMake(0, 0, width, kRangeSliderTrackHeight);
-    self.trackLayer.position = CGPointMake(width / 2, height / 2);
-
-    CGFloat from = CGRectGetMaxX(self.fromThumbView.frame);
-    CGFloat to = CGRectGetMinX(self.toThumbView.frame);
-
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue
-                     forKey:kCATransactionDisableActions];
-    self.selectedTrackLayer.frame = CGRectMake(0, 0, to - from, kRangeSliderTrackHeight);
-    self.selectedTrackLayer.position = CGPointMake((from + to) / 2, height / 2);
-    [CATransaction commit];
+    [self ms_alignValues];
+    [self setNeedsLayout];
 }
 
 #pragma mark - Private methods
@@ -185,11 +163,18 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     [self addSubview:self.toThumbView];
     UIGestureRecognizer *toGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(ms_didPanToThumbView:)];
     [self.toThumbView addGestureRecognizer:toGestureRecognizer];
-
-    [self ms_updateThumbsPosition];
 }
 
-- (void)ms_updateThumbsPosition
+- (void)ms_alignValues
+{
+    _minimumValue = MIN(self.maximumValue, self.minimumValue);
+    _maximumValue = MAX(self.maximumValue, self.minimumValue);
+    _minimumInterval = MIN(self.minimumInterval, self.maximumValue - self.minimumValue);
+    _toValue = MIN(MAX(self.toValue, self.fromValue + self.minimumInterval), self.maximumValue);
+    _fromValue = MAX(MIN(self.fromValue, self.toValue - self.minimumInterval), self.minimumValue);
+}
+
+- (void)ms_updateThumbs
 {
     CGPoint fromThumbLocation = [self ms_thumbLocationForValue:self.fromValue];
 
@@ -202,6 +187,25 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     CGFloat valueRange = (self.maximumValue - self.minimumValue);
     NSLog(@"%.2f %.2f", valueRange * (self.toThumbView.frame.origin.x - kRangeSliderDimension - self.fromThumbView.frame.origin.x) / width,
           self.toValue - self.fromValue);
+}
+
+- (void)ms_updateTrackLayers
+{
+    CGFloat width = CGRectGetWidth(self.bounds);
+    CGFloat height = CGRectGetHeight(self.bounds);
+
+    self.trackLayer.bounds = CGRectMake(0, 0, width, kRangeSliderTrackHeight);
+    self.trackLayer.position = CGPointMake(width / 2, height / 2);
+
+    CGFloat from = CGRectGetMaxX(self.fromThumbView.frame);
+    CGFloat to = CGRectGetMinX(self.toThumbView.frame);
+
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue
+                     forKey:kCATransactionDisableActions];
+    self.selectedTrackLayer.bounds = CGRectMake(0, 0, to - from, kRangeSliderTrackHeight);
+    self.selectedTrackLayer.position = CGPointMake((from + to) / 2, height / 2);
+    [CATransaction commit];
 }
 
 - (void)ms_didPanFromThumbView:(UIPanGestureRecognizer *)gestureRecognizer
@@ -243,7 +247,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     CGFloat width = CGRectGetWidth(self.bounds) - 2 * kRangeSliderDimension;
     CGFloat valueRange = (self.maximumValue - self.minimumValue);
 
-    CGFloat x = width * (value - self.minimumValue) / valueRange;
+    CGFloat x = valueRange == 0 ? 0 : width * (value - self.minimumValue) / valueRange;
 
     return CGPointMake(x, 0);
 }
