@@ -13,6 +13,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
 @interface MSThumbView : UIView
 @property (nonatomic, strong) CALayer *thumbLayer;
+@property (nonatomic, strong) UIColor *tintColor;
 @end
 
 @implementation MSThumbView
@@ -46,6 +47,12 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
     self.thumbLayer.bounds = CGRectMake(0, 0, kRangeSliderDimension, kRangeSliderDimension);
     self.thumbLayer.position = CGPointMake(kRangeSliderDimension / 2, kRangeSliderDimension / 2);
+}
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    _tintColor = tintColor;
+    self.thumbLayer.backgroundColor = tintColor.CGColor;
 }
 
 @end
@@ -130,6 +137,25 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     [self setNeedsLayout];
 }
 
+- (void)setSelectedTrackTintColor:(UIColor *)selectedTrackTintColor
+{
+    _selectedTrackTintColor = selectedTrackTintColor;
+    self.selectedTrackLayer.backgroundColor = selectedTrackTintColor.CGColor;
+}
+
+- (void)setTrackTintColor:(UIColor *)trackTintColor
+{
+    _trackTintColor = trackTintColor;
+    self.trackLayer.backgroundColor = trackTintColor.CGColor;
+}
+
+- (void)setThumbTintColor:(UIColor *)thumbTintColor
+{
+    _thumbTintColor = thumbTintColor;
+    self.fromThumbView.tintColor = thumbTintColor;
+    self.toThumbView.tintColor = thumbTintColor;
+}
+
 #pragma mark - Private methods
 
 - (void)ms_init
@@ -140,9 +166,9 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     _fromValue = _minimumValue;
     _toValue = _maximumValue;
 
-    self.selectedTrackTintColor = [UIColor colorWithRed:0.0 green:122.0 / 255.0 blue:1.0 alpha:1.0];
-    self.trackTintColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
-    self.thumbTintColor = [UIColor whiteColor];
+    _selectedTrackTintColor = [UIColor colorWithRed:0.0 green:122.0 / 255.0 blue:1.0 alpha:1.0];
+    _trackTintColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+    _thumbTintColor = [UIColor whiteColor];
 
     self.trackLayer = [CALayer layer];
     self.trackLayer.backgroundColor = self.trackTintColor.CGColor;

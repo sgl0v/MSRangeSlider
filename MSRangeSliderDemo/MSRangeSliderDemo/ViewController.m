@@ -20,11 +20,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.slider.minimumTrackTintColor = [UIColor redColor];
+    self.slider.maximumTrackTintColor = [UIColor greenColor];
+    self.slider.thumbTintColor = [UIColor blueColor];
+
     self.rangeSlider.minimumValue = 0;
     self.rangeSlider.maximumValue = 100;
     self.rangeSlider.minimumInterval = 50;
     self.rangeSlider.fromValue = 0;
     self.rangeSlider.toValue = 50;
+    self.rangeSlider.selectedTrackTintColor = [UIColor redColor];
+    self.rangeSlider.trackTintColor = [UIColor greenColor];
+    self.rangeSlider.thumbTintColor = [UIColor blueColor];
+
     [self ms_didChangeValue:self.rangeSlider];
 }
 
