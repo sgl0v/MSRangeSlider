@@ -208,11 +208,6 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
     CGPoint toThumbLocation = [self ms_thumbLocationForValue:self.toValue];
     self.toThumbView.frame = CGRectMake(toThumbLocation.x + kRangeSliderDimension, toThumbLocation.y, kRangeSliderDimension, kRangeSliderDimension);
-
-    CGFloat width = CGRectGetWidth(self.bounds) - 2 * kRangeSliderDimension;
-    CGFloat valueRange = (self.maximumValue - self.minimumValue);
-    NSLog(@"%.2f %.2f", valueRange * (self.toThumbView.frame.origin.x - kRangeSliderDimension - self.fromThumbView.frame.origin.x) / width,
-          self.toValue - self.fromValue);
 }
 
 - (void)ms_updateTrackLayers

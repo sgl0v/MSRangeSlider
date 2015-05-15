@@ -29,9 +29,10 @@
     self.rangeSlider.minimumInterval = 50;
     self.rangeSlider.fromValue = 0;
     self.rangeSlider.toValue = 50;
-    self.rangeSlider.selectedTrackTintColor = [UIColor redColor];
-    self.rangeSlider.trackTintColor = [UIColor greenColor];
-    self.rangeSlider.thumbTintColor = [UIColor blueColor];
+
+    [[MSRangeSlider appearance] setSelectedTrackTintColor:[UIColor redColor]];
+    [[MSRangeSlider appearance] setTrackTintColor:[UIColor greenColor]];
+    [[MSRangeSlider appearance] setThumbTintColor:[UIColor blueColor]];
 
     [self ms_didChangeValue:self.rangeSlider];
 }
