@@ -139,18 +139,21 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
 - (void)setSelectedTrackTintColor:(UIColor *)selectedTrackTintColor
 {
+    NSParameterAssert(selectedTrackTintColor);
     _selectedTrackTintColor = selectedTrackTintColor;
     self.selectedTrackLayer.backgroundColor = selectedTrackTintColor.CGColor;
 }
 
 - (void)setTrackTintColor:(UIColor *)trackTintColor
 {
+    NSParameterAssert(trackTintColor);
     _trackTintColor = trackTintColor;
     self.trackLayer.backgroundColor = trackTintColor.CGColor;
 }
 
 - (void)setThumbTintColor:(UIColor *)thumbTintColor
 {
+    NSParameterAssert(thumbTintColor);
     _thumbTintColor = thumbTintColor;
     self.fromThumbView.tintColor = thumbTintColor;
     self.toThumbView.tintColor = thumbTintColor;
@@ -162,7 +165,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 {
     _minimumValue = 0.0;
     _maximumValue = 1.0;
-    _minimumInterval = .5;
+    _minimumInterval = 0.1;
     _fromValue = _minimumValue;
     _toValue = _maximumValue;
 
@@ -266,11 +269,12 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 - (CGPoint)ms_thumbLocationForValue:(CGFloat)value
 {
     CGFloat width = CGRectGetWidth(self.bounds) - 2 * kRangeSliderDimension;
+    CGFloat height = CGRectGetHeight(self.bounds);
     CGFloat valueRange = (self.maximumValue - self.minimumValue);
 
     CGFloat x = valueRange == 0 ? 0 : width * (value - self.minimumValue) / valueRange;
 
-    return CGPointMake(x, 0);
+    return CGPointMake(x, (height - kRangeSliderDimension) / 2);
 }
 
 @end

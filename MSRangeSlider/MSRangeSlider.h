@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 @interface MSRangeSlider : UIControl
 
 //! @abstract The left handle's position. The default value is 0.0. this value will be pinned to min/max.
@@ -28,3 +29,4 @@
 @property (nonatomic, strong) UIColor *thumbTintColor UI_APPEARANCE_SELECTOR;
 
 @end
+NS_ASSUME_NONNULL_END
