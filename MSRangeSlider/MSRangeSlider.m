@@ -104,14 +104,14 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
 - (void)setFromValue:(CGFloat)fromValue
 {
-    _fromValue = MAX(MIN(fromValue, self.toValue - self.minimumInterval), self.minimumValue);
+    _fromValue = fromValue;
     [self ms_alignValues];
     [self setNeedsLayout];
 }
 
 - (void)setToValue:(CGFloat)toValue
 {
-    _toValue = MIN(MAX(toValue, self.fromValue + self.minimumInterval), self.maximumValue);
+    _toValue = toValue;
     [self ms_alignValues];
     [self setNeedsLayout];
 }
@@ -240,7 +240,8 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
     CGPoint translation = [gestureRecognizer translationInView:self];
     [gestureRecognizer setTranslation:CGPointZero inView:self];
-    self.fromValue = [self ms_applyTranslation:translation.x forValue:self.fromValue];
+    CGFloat fromValue = [self ms_applyTranslation:translation.x forValue:self.fromValue];
+    self.fromValue = MAX(MIN(fromValue, self.toValue - self.minimumInterval), self.minimumValue);
 
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
@@ -253,7 +254,8 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
     CGPoint translation = [gestureRecognizer translationInView:self];
     [gestureRecognizer setTranslation:CGPointZero inView:self];
-    self.toValue = [self ms_applyTranslation:translation.x forValue:self.toValue];
+    CGFloat toValue = [self ms_applyTranslation:translation.x forValue:self.toValue];
+    self.toValue = MIN(MAX(toValue, self.fromValue + self.minimumInterval), self.maximumValue);
 
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
