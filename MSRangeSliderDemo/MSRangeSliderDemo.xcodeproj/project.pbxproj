@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5AB373EB1B910A0C61A3DA9F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 163DED13FA72EF73B3527C11 /* libPods.a */; };
+		1DD2E7935175D6783C8BD9CB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF45CB6607ED2590C959 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		46CE0B40BB7AFF720C55A0CF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF45CB6607ED2590C959 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5EDBA4AD1AFBD12100FF51B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4AC1AFBD12100FF51B6 /* main.m */; };
 		5EDBA4B01AFBD12100FF51B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4AF1AFBD12100FF51B6 /* AppDelegate.m */; };
 		5EDBA4B31AFBD12100FF51B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4B21AFBD12100FF51B6 /* ViewController.m */; };
@@ -15,7 +16,7 @@
 		5EDBA4B81AFBD12100FF51B6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EDBA4B71AFBD12100FF51B6 /* Images.xcassets */; };
 		5EDBA4BB1AFBD12100FF51B6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EDBA4B91AFBD12100FF51B6 /* LaunchScreen.xib */; };
 		5EDBA4C71AFBD12100FF51B6 /* MSRangeSliderDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4C61AFBD12100FF51B6 /* MSRangeSliderDemoTests.m */; };
-		9838D3FAC5949FDEEE9F08FB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 163DED13FA72EF73B3527C11 /* libPods.a */; };
+		9838D3FAC5949FDEEE9F08FB /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		163DED13FA72EF73B3527C11 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		43849B4E9AC59C2050AD3A37 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		474AAF45CB6607ED2590C959 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDBA4A71AFBD12100FF51B6 /* MSRangeSliderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSRangeSliderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDBA4AB1AFBD12100FF51B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EDBA4AC1AFBD12100FF51B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -52,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AB373EB1B910A0C61A3DA9F /* libPods.a in Frameworks */,
+				1DD2E7935175D6783C8BD9CB /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9838D3FAC5949FDEEE9F08FB /* libPods.a in Frameworks */,
+				9838D3FAC5949FDEEE9F08FB /* (null) in Frameworks */,
+				46CE0B40BB7AFF720C55A0CF /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +72,7 @@
 		2E567383F3F484D4736BBB6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				163DED13FA72EF73B3527C11 /* libPods.a */,
+				474AAF45CB6607ED2590C959 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,6 +159,7 @@
 				5EDBA4A41AFBD12100FF51B6 /* Frameworks */,
 				5EDBA4A51AFBD12100FF51B6 /* Resources */,
 				7F0FDF111304FECE9380142B /* Copy Pods Resources */,
+				3221874D1B041B6C45EBBE37 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +179,7 @@
 				5EDBA4BD1AFBD12100FF51B6 /* Frameworks */,
 				5EDBA4BE1AFBD12100FF51B6 /* Resources */,
 				B3206D0D8BAD65713AE88628 /* Copy Pods Resources */,
+				07498D60122B11D0F6F96FCC /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,6 +249,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		07498D60122B11D0F6F96FCC /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3221874D1B041B6C45EBBE37 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7F0FDF111304FECE9380142B /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
