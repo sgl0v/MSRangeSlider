@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "MSRangeSlider"
   s.version          = "0.1.0"
-  s.summary          = "Range slider component for iOS."
+  s.summary          = "A range slider control for iOS."
   s.homepage         = "https://github.com/sgl0v/MSRangeSlider"
   s.license          = 'MIT'
   s.author           = { "Maksym Shcheglov" => "maxscheglov@gmail.com" }
