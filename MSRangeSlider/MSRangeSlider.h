@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MSRangeSlider : UIControl
 
 /**
-*  The slider's minimum value. The default value is 0.0. Should be lower than maximumValue.
-*/
+ *  The slider's minimum value. The default value is 0.0. Should be lower than maximumValue.
+ */
 @property (nonatomic, assign) IBInspectable CGFloat minimumValue;
 /**
  *  The slider's maximum value. The default value is 1.0. Should be higher than minimumValue.

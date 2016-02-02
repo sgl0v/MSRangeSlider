@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import <MSRangeSlider/MSRangeSlider.h>
 
 @interface MSRangeSliderDemoTests : XCTestCase
-
+@property(nonatomic, strong) MSRangeSlider* rangeSlider;
 @end
 
 @implementation MSRangeSliderDemoTests
@@ -18,27 +19,47 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.rangeSlider = [[MSRangeSlider alloc] initWithFrame:CGRectMake(0, 0, 250, 30)];
 }
 
-- (void)tearDown
+- (void)testSliderCreation
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+    XCTAssertNotNil(self.rangeSlider);
 }
 
-- (void)testExample
+- (void)testMaxMinPropertiesConsistency
 {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+    self.rangeSlider.maximumValue = 100;
+    self.rangeSlider.minimumValue = 0;
+    self.rangeSlider.minimumInterval = 100;
+    XCTAssertEqual(self.rangeSlider.maximumValue, 100);
+    XCTAssertEqual(self.rangeSlider.minimumValue, 0);
+
+    self.rangeSlider.maximumValue = 60;
+    self.rangeSlider.minimumValue = 20;
+    XCTAssertEqual(self.rangeSlider.minimumInterval, 40);
 }
 
-- (void)testPerformanceExample
+- (void)testFromToPropertiesConsistency
 {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-         // Put the code you want to measure the time of here.
-     }];
+    self.rangeSlider.minimumInterval = 10;
+    self.rangeSlider.maximumValue = 100;
+    self.rangeSlider.minimumValue = 0;
+    self.rangeSlider.fromValue = 10;
+    self.rangeSlider.toValue = 40;
+    XCTAssertEqual(self.rangeSlider.fromValue, 10);
+    XCTAssertEqual(self.rangeSlider.toValue, 40);
+
+    self.rangeSlider.fromValue = -10;
+    self.rangeSlider.toValue = 110;
+    XCTAssertEqual(self.rangeSlider.fromValue, 0);
+    XCTAssertEqual(self.rangeSlider.toValue, 100);
+
+    self.rangeSlider.fromValue = 10;
+    self.rangeSlider.toValue = 20;
+    self.rangeSlider.minimumInterval = 20;
+    XCTAssertEqual(self.rangeSlider.fromValue, 10);
+    XCTAssertEqual(self.rangeSlider.toValue, 30);
 }
 
 @end
