@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1DD2E7935175D6783C8BD9CB /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF45CB6607ED2590C959 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		46CE0B40BB7AFF720C55A0CF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474AAF45CB6607ED2590C959 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		46CE0B40BB7AFF720C55A0CF /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		5EDBA4AD1AFBD12100FF51B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4AC1AFBD12100FF51B6 /* main.m */; };
 		5EDBA4B01AFBD12100FF51B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4AF1AFBD12100FF51B6 /* AppDelegate.m */; };
 		5EDBA4B31AFBD12100FF51B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4B21AFBD12100FF51B6 /* ViewController.m */; };
@@ -17,6 +16,8 @@
 		5EDBA4BB1AFBD12100FF51B6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EDBA4B91AFBD12100FF51B6 /* LaunchScreen.xib */; };
 		5EDBA4C71AFBD12100FF51B6 /* MSRangeSliderDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDBA4C61AFBD12100FF51B6 /* MSRangeSliderDemoTests.m */; };
 		9838D3FAC5949FDEEE9F08FB /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		AA884A22843F187F3FED624A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A37A84DFFF3167259C24BCC7 /* libPods.a */; };
+		DF032185B6B50D8CB1582ABA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A37A84DFFF3167259C24BCC7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		43849B4E9AC59C2050AD3A37 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		474AAF45CB6607ED2590C959 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDBA4A71AFBD12100FF51B6 /* MSRangeSliderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSRangeSliderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDBA4AB1AFBD12100FF51B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EDBA4AC1AFBD12100FF51B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -45,6 +45,7 @@
 		5EDBA4C01AFBD12100FF51B6 /* MSRangeSliderDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MSRangeSliderDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDBA4C51AFBD12100FF51B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EDBA4C61AFBD12100FF51B6 /* MSRangeSliderDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSRangeSliderDemoTests.m; sourceTree = "<group>"; };
+		A37A84DFFF3167259C24BCC7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00767AFB920EEEFACA68A5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DD2E7935175D6783C8BD9CB /* Pods.framework in Frameworks */,
+				DF032185B6B50D8CB1582ABA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +63,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9838D3FAC5949FDEEE9F08FB /* (null) in Frameworks */,
-				46CE0B40BB7AFF720C55A0CF /* Pods.framework in Frameworks */,
+				46CE0B40BB7AFF720C55A0CF /* (null) in Frameworks */,
+				AA884A22843F187F3FED624A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +74,7 @@
 		2E567383F3F484D4736BBB6D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				474AAF45CB6607ED2590C959 /* Pods.framework */,
+				A37A84DFFF3167259C24BCC7 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -479,6 +481,11 @@
 				INFOPLIST_FILE = MSRangeSliderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-iquote",
+					"\"$PODS_FRAMEWORK_BUILD_PATH/MSRangeSlider.framework/Headers\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mshcheglov.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -11,7 +11,7 @@
 #import <MSRangeSlider/MSRangeSlider.h>
 
 @interface MSRangeSliderDemoTests : XCTestCase
-@property(nonatomic, strong) MSRangeSlider* rangeSlider;
+@property (nonatomic, strong) MSRangeSlider *rangeSlider;
 @end
 
 @implementation MSRangeSliderDemoTests

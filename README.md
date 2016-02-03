@@ -13,9 +13,12 @@ MSRangeSlider
 
 ##<a name="overview"></a>Overview
 
-Range slider control for iOS that looks similar to UISlider. It allows the user to select a range of values with two drag handles. The space between the handles is filled with a different background color to indicate those values are selected.
+Range slider control that allows the user to select a range of values with two drag handles. The space between the handles is filled with a different background color to indicate those values are selected. Key features:
 
-Compatible with iOS 8.0 (iPhone &amp; iPad) and higher.
+- Looks similar to the UISlider,
+- `IB_DESIGNABLE` control with `IBInspectable` properties,
+- Well-documented,
+- Compatible with iOS 8.0 (iPhone &amp; iPad) and higher.
 
 ## Installation
 
@@ -25,12 +28,6 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "MSRangeSlider"
 ```
-
-<b>Caveat</b> This control uses IB_DESIGNABLE. If you add it to your project via Interface Builder, you'll get warnings. To fix them you should do the following:
-
-- use the latest version of cocoapods,
-- add the `use_frameworks!` line to the podfile. 
-
 
 ## Demo
 
