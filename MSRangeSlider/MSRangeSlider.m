@@ -9,7 +9,10 @@
 #import "MSRangeSlider.h"
 
 static CGFloat const kRangeSliderTrackHeight = 2.0f;
-static CGFloat const kRangeSliderDimension = 28.0f;
+static CGFloat const kRangeSliderDimension = 42.0f;
+static CGFloat const kRangeSliderThumbDiameter = 28.0f;
+static CGFloat const kRangeSliderThumbScaledown = kRangeSliderThumbDiameter / kRangeSliderDimension;
+static CGFloat const kRangeSliderScaleEdgeCompensation = (kRangeSliderDimension - kRangeSliderThumbDiameter) / 2;
 
 @interface MSThumbView : UIView
 @property (nonatomic, strong) CALayer *thumbLayer;
@@ -24,6 +27,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 
     if (self) {
         self.thumbLayer = [CALayer layer];
+        self.thumbLayer.affineTransform = CGAffineTransformMakeScale(kRangeSliderThumbScaledown, kRangeSliderThumbScaledown);
 
         self.thumbLayer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:.4].CGColor;
         self.thumbLayer.borderWidth = .5;
@@ -218,11 +222,11 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat height = CGRectGetHeight(self.bounds);
 
-    self.trackLayer.bounds = CGRectMake(0, 0, width, kRangeSliderTrackHeight);
+    self.trackLayer.bounds = CGRectMake(0 + kRangeSliderScaleEdgeCompensation, 0, width - 2 * kRangeSliderScaleEdgeCompensation, kRangeSliderTrackHeight);
     self.trackLayer.position = CGPointMake(width / 2, height / 2);
 
-    CGFloat from = CGRectGetMaxX(self.fromThumbView.frame);
-    CGFloat to = CGRectGetMinX(self.toThumbView.frame);
+    CGFloat from = CGRectGetMaxX(self.fromThumbView.frame) - kRangeSliderScaleEdgeCompensation;
+    CGFloat to = CGRectGetMinX(self.toThumbView.frame) + kRangeSliderScaleEdgeCompensation;
 
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue
