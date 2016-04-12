@@ -7,13 +7,16 @@
 //
 
 #import "MSRangeSlider.h"
+#import "UIControl+HitTestEdgeInsets.h"
 
 static CGFloat const kRangeSliderTrackHeight = 2.0f;
 static CGFloat const kRangeSliderDimension = 28.0f;
+static CGFloat const kThumbViewEdgeInset = -10.0f;
 
-@interface MSThumbView : UIView
+@interface MSThumbView : UIControl
 @property (nonatomic, strong) CALayer *thumbLayer;
 @property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) UIGestureRecognizer* gestureRecognizer;
 @end
 
 @implementation MSThumbView
@@ -34,6 +37,8 @@ static CGFloat const kRangeSliderDimension = 28.0f;
         self.thumbLayer.shadowRadius = 2;
         self.thumbLayer.shadowOpacity = 0.3f;
         [self.layer addSublayer:self.thumbLayer];
+        self.gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:nil action:nil];
+        [self addGestureRecognizer:self.gestureRecognizer];
     }
 
     return self;
@@ -62,8 +67,8 @@ static CGFloat const kRangeSliderDimension = 28.0f;
 @property (nonatomic, strong) CALayer *trackLayer;
 @property (nonatomic, strong) CALayer *selectedTrackLayer;
 
-@property (nonatomic, strong) UIView *fromThumbView;
-@property (nonatomic, strong) UIView *toThumbView;
+@property (nonatomic, strong) MSThumbView *fromThumbView;
+@property (nonatomic, strong) MSThumbView *toThumbView;
 
 @end
 
@@ -168,6 +173,7 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     _minimumInterval = 0.1;
     _fromValue = _minimumValue;
     _toValue = _maximumValue;
+    self.hitTestEdgeInsets = UIEdgeInsetsMake(kThumbViewEdgeInset, kThumbViewEdgeInset, kThumbViewEdgeInset, kThumbViewEdgeInset);
 
     _selectedTrackTintColor = [UIColor colorWithRed:0.0 green:122.0 / 255.0 blue:1.0 alpha:1.0];
     _trackTintColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
@@ -184,14 +190,14 @@ static CGFloat const kRangeSliderDimension = 28.0f;
     [self.layer addSublayer:self.selectedTrackLayer];
 
     self.fromThumbView = [[MSThumbView alloc] init];
+    self.fromThumbView.hitTestEdgeInsets = UIEdgeInsetsMake(kThumbViewEdgeInset, kThumbViewEdgeInset, kThumbViewEdgeInset, 0);
+    [self.fromThumbView.gestureRecognizer addTarget:self action:@selector(ms_didPanFromThumbView:)];
     [self addSubview:self.fromThumbView];
-    UIGestureRecognizer *fromGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(ms_didPanFromThumbView:)];
-    [self.fromThumbView addGestureRecognizer:fromGestureRecognizer];
 
     self.toThumbView = [[MSThumbView alloc] init];
+    self.toThumbView.hitTestEdgeInsets = UIEdgeInsetsMake(kThumbViewEdgeInset, 0, kThumbViewEdgeInset, kThumbViewEdgeInset);
+    [self.toThumbView.gestureRecognizer addTarget:self action:@selector(ms_didPanToThumbView:)];
     [self addSubview:self.toThumbView];
-    UIGestureRecognizer *toGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(ms_didPanToThumbView:)];
-    [self.toThumbView addGestureRecognizer:toGestureRecognizer];
 }
 
 - (void)ms_alignValues
