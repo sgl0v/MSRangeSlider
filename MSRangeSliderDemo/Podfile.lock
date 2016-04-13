@@ -1,5 +1,5 @@
 PODS:
-  - MSRangeSlider (1.0.0)
+  - MSRangeSlider (1.1.0)
 
 DEPENDENCIES:
   - MSRangeSlider (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MSRangeSlider: a1ed6b8b2c7b416f7e3b1d7db61c0c8253213e6a
+  MSRangeSlider: 14b669140a4615e1d372c8d2abbfd96cd9e3fb08
 
 COCOAPODS: 0.39.0

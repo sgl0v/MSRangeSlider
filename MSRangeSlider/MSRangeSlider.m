@@ -11,7 +11,7 @@
 
 static CGFloat const kRangeSliderTrackHeight = 2.0f;
 static CGFloat const kRangeSliderDimension = 28.0f;
-static CGFloat const kThumbViewEdgeInset = -10.0f;
+static CGFloat const kThumbViewEdgeInset = -7.5f;
 
 @interface MSThumbView : UIControl
 @property (nonatomic, strong) CALayer *thumbLayer;

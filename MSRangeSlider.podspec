@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "MSRangeSlider"
-  s.version          = "1.0.0"
+  s.version          = "1.1.0"
   s.summary          = "The range slider control for iOS."
   s.homepage         = "https://github.com/sgl0v/MSRangeSlider"
   s.license          = 'MIT'

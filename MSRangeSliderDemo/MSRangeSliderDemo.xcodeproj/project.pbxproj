@@ -478,6 +478,7 @@
 			baseConfigurationReference = D00767AFB920EEEFACA68A5C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = MSRangeSliderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -496,6 +497,7 @@
 			baseConfigurationReference = 43849B4E9AC59C2050AD3A37 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = MSRangeSliderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
