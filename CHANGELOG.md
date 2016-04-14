@@ -15,11 +15,11 @@ Released on 2016-04-11.
 
 ---
 
-## [1.0.0](https://github.com/Alamofire/Alamofire/releases/tag/3.3.0)
+## [1.0.0](https://github.com/sgl0v/MSRangeSlider/releases/tag/1.0.0)
 Released on 2016-02-03. 
 
 #### Updates
-- ?
+- The first stable release
 
 ---
 
